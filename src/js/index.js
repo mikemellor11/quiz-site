@@ -1,12 +1,10 @@
-// Parcel dev hotreload toggle
-if(module.hot) { module.hot.accept(); }
-
-require('socket.io-client');
-
 import Vue from 'vue';
-import App from '../vue/app/App.vue';
+import router from './router.js';
+import store from './store.js';
 
 new Vue({
     el: '#app',
-    render: h => h(App),
+    router,
+    store,
+    render: h => h(require('../vue/App.vue').default),
 });
