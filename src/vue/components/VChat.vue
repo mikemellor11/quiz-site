@@ -1,6 +1,6 @@
 <template>
     <div class="chat">        
-        <ul>
+        <ul class="chat__messages">
             <li
                 v-for="(message, i) in messages"
                 :key="i"
@@ -8,21 +8,24 @@
             />
         </ul>
 
-        <div>
+        <form v-on:submit.prevent="send">
             <input
                 v-model="message"
                 autocomplete="off"
                 placeholder="type your message here..."
+                class=""
             />
             <button
-                v-on:click="send"
+                type="submit"
                 v-text="'Send'"
             />
-        </div>
+        </form>
     </div>
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+    
     export default {
         name: 'VChat',
 
@@ -33,10 +36,10 @@
             };
         },
 
-        props: [
+        computed: mapState([
             'socket',
             'room'
-        ],
+        ]),
 
         methods: {
             send(){
@@ -46,7 +49,7 @@
         },
 
         mounted(){
-            this.socket.on('output', msg => this.messages.push(msg));
+            this.socket.on('output', msg => this.messages.unshift(msg));
         }
     };
 </script>

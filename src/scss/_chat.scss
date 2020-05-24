@@ -1,0 +1,15 @@
+.chat{
+    background-color: gray;
+    padding: $spacing;
+    color: white;
+}
+
+.chat__messages{
+    height: 125px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: $spacing;
+    display: flex;
+    flex-direction: column-reverse;
+}

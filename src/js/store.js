@@ -4,6 +4,8 @@ import VuexPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
+import io from 'socket.io-client';
+
 export default new Vuex.Store({
     plugins: [
         VuexPersistedState({
@@ -12,7 +14,9 @@ export default new Vuex.Store({
     ],
     
     state: {
-        name: ''
+        name: '',
+        socket: io(`http://192.168.0.11:8080${window.location.pathname}`),
+        room: window.location.pathname
     },
 
     mutations: {

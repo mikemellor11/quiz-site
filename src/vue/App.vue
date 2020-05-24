@@ -1,27 +1,28 @@
 <template>
-    <router-view
-        :socket="socket"
-        :room="room"
-    />
+    <main class="p-4">
+        <router-view/>
+    </main>
 </template>
 
 <script>
-    import io from 'socket.io-client';
+    import { mapState } from 'vuex';
 
     export default {
-        data: function () {
-            return {
-                socket: io(`http://192.168.0.11:8080${window.location.pathname}`),
-                room: window.location.pathname
-            };
-        },
+        computed: mapState([
+            'name',
+            'socket',
+            'room'
+        ]),
 
         mounted(){
-            if(!this.$store.state.name){
+            if(!this.name){
                 this.$store.commit('setName', window.prompt('Please tell me your name'));
             }
 
-            this.socket.emit('username', this.$store.state.name);
+            this.socket.on('connect', () => this.socket.emit('username', this.name));
+        },
+        beforeDestroy(){
+            this.socket.disconnect();
         }
     };
 </script>
