@@ -1,0 +1,12 @@
+.button{
+    background-color: $color2;
+    padding: $spacing #{$spacing * 2};
+    border-radius: $radius;
+    color: $color0;
+    transition: background-color $duration;
+
+    &:hover, &:focus{
+        outline: none;
+        background-color: darken($color2, 10%);
+    }
+}

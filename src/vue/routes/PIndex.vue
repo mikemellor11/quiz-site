@@ -26,8 +26,11 @@
             </div>
 
             <button
-                v-text="'Start'"
-                v-on:click="start"
+                class="
+                    button
+                "
+                v-text="'Join'"
+                v-on:click="join"
             />
         </div>
 
@@ -50,18 +53,22 @@
         },
 
         computed: mapState([
-            'socket',
-            'room'
+            'name'
         ]),
 
         methods: {
-            start(){
-                this.socket.emit('start', this.room);
+            join(e){
+                e.target.blur();
+
+                this.$store.commit('setName', window.prompt('Please tell me your name'));
+                this.socket.emit('username', this.name);
+
+                //this.socket.emit('start', this.room);
             }
         },
 
         mounted(){
-            this.socket.on('question', json => this.question = json);
+            // this.socket.on('question', json => this.question = json);
         },
 
         components: {

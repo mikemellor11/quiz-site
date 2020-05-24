@@ -24,8 +24,6 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
-    
     export default {
         name: 'VChat',
 
@@ -35,11 +33,6 @@
                 message: ''
             };
         },
-
-        computed: mapState([
-            'socket',
-            'room'
-        ]),
 
         methods: {
             send(){

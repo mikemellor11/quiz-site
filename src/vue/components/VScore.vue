@@ -13,7 +13,6 @@
 
 <script>
     import axios from "axios";
-    import { mapState } from 'vuex';
 
     export default {
         name: 'VScore',
@@ -24,18 +23,19 @@
             };
         },
 
-        computed: mapState([
-            'socket',
-            'room'
-        ]),
-
-        mounted(){
-            this.socket.on('update users', () => {
+        methods: {
+            update(){
                 axios.get(`http://192.168.0.11:8080/scores${this.room}`)
                     .then(res => {
                         this.scores = res.data;
                     });
-            });
+            }
+        },
+
+        mounted(){
+            this.update();
+
+            this.socket.on('update users', () => this.update());
         }
     };
 </script>

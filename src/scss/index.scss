@@ -1,8 +1,17 @@
 @import "tailwindcss/dist/base.css";
 
-$spacing: 10px;
+@import "./_variables.scss";
 
 @import "./_chat.scss";
 @import "./_layout.scss";
+@import "./_button.scss";
+@import "./_typography.scss";
+@import "./_score.scss";
+@import "./_form.scss";
 
 @import "tailwindcss/dist/utilities.css";
+
+body{
+    background-color: $color1;
+    color: $color0;
+}
