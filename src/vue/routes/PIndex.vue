@@ -26,11 +26,20 @@
             </div>
 
             <button
+                v-if="!$store.state.name"
                 class="
                     button
                 "
                 v-text="'Join'"
                 v-on:click="join"
+            />
+            <button
+                v-else
+                class="
+                    button
+                "
+                v-text="'Leave'"
+                v-on:click="leave"
             />
         </div>
 
@@ -61,9 +70,15 @@
                 e.target.blur();
 
                 this.$store.commit('setName', window.prompt('Please tell me your name'));
-                this.socket.emit('username', this.name);
+                this.socket.emit('join', this.name);
 
                 //this.socket.emit('start', this.room);
+            },
+            leave(e){
+                e.target.blur();
+
+                this.$store.commit('setName', '');
+                this.socket.emit('leave');
             }
         },
 

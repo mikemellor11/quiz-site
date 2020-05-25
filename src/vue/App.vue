@@ -15,7 +15,7 @@
         mounted(){
             this.socket.on('connect', () => {
                 if(this.name){
-                    this.socket.emit('username', this.name);
+                    this.socket.emit('join', this.name);
                 }
             });
         },
