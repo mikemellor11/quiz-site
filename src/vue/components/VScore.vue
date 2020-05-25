@@ -3,11 +3,14 @@
         <h3>Scores:</h3>
         <ol>
             <li
-                v-for="(score, i) in scores"
+                v-for="(player, i) in players"
                 :key="i"
-                v-text="`${score.name}: ${score.score}`"
+                v-text="`${player.name}: ${player.score}`"
             />
         </ol>
+        <p
+            v-text="`${spectators.length} people spectating:`"
+        />
     </div>
 </template>
 
@@ -21,6 +24,15 @@
             return {
                 scores: [],
             };
+        },
+
+        computed: {
+            spectators(){
+                return this.scores.filter(d => !d.name);
+            },
+            players(){
+                return this.scores.filter(d => d.name);
+            }
         },
 
         methods: {
