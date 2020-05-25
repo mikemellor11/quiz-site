@@ -1,30 +1,30 @@
 <template>
-    <div class="h-full grid grid-rows-4 grid-cols-4 h-100 gap-4">
+    <div class="h-full grid grid-rows-6 grid-cols-12 h-100 gap-4">
         <VVisualize
             class="
-                col-span-3
-                row-span-2
+                col-span-8
+                row-span-4
             "
         />
 
         <VScore
             class="
-                col-span-1
-                row-span-3
+                col-span-4
+                row-span-4
             "
         />
 
         <VQuestion
             class="
-                col-span-3
+                col-span-8
                 row-span-2
             "
         />
 
         <VChat
             class="
-                col-span-1
-                row-span-1
+                col-span-4
+                row-span-2
             "
         />
     </div>

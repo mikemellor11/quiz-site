@@ -12,7 +12,8 @@ export default new Vuex.Store({
     ],
     
     state: {
-        session: null
+        session: null,
+        state: null
     },
 
     mutations: {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
         },
         endSession(state, payload){
             state.session = null;
+        },
+        updateState(state, payload){
+            state.state = payload;
         }
     }
 });

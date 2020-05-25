@@ -9,7 +9,9 @@
                     v-text="`${player.session.name}: ${player.score}`"
                 />
             </ol>
-            <div>
+            <div
+                v-if="state === 1"
+            >
                 <button
                     v-if="!$store.state.session"
                     class="
@@ -72,7 +74,8 @@
                 return this.scores.filter(d => d.session);
             },
             ...mapState([
-                'session'
+                'session',
+                'state'
             ])
         },
 
