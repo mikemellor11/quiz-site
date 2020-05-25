@@ -12,12 +12,15 @@ export default new Vuex.Store({
     ],
     
     state: {
-        name: ''
+        session: null
     },
 
     mutations: {
-        setName(state, payload){
-            state.name = payload;
+        newSession(state, payload){
+            state.session = payload;
+        },
+        endSession(state, payload){
+            state.session = null;
         }
     }
 });

@@ -6,7 +6,7 @@
                 <li
                     v-for="(player, i) in players"
                     :key="i"
-                    v-text="`${player.name}: ${player.score}`"
+                    v-text="`${player.session.name}: ${player.score}`"
                 />
             </ol>
         </div>
@@ -43,10 +43,10 @@
 
         computed: {
             spectators(){
-                return this.scores.filter(d => !d.name);
+                return this.scores.filter(d => !d.session);
             },
             players(){
-                return this.scores.filter(d => d.name);
+                return this.scores.filter(d => d.session);
             }
         },
 

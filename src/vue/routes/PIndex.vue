@@ -26,7 +26,7 @@
             </div>
 
             <button
-                v-if="!$store.state.name"
+                v-if="!$store.state.session"
                 class="
                     button
                 "
@@ -52,6 +52,7 @@
 
 <script>
     import { mapState } from 'vuex';
+    import { v4 as uuidv4 } from 'uuid';
 
     export default {
         name: 'PIndex',
@@ -63,22 +64,27 @@
         },
 
         computed: mapState([
-            'name'
+            'session'
         ]),
 
         methods: {
             join(e){
                 e.target.blur();
 
-                this.$store.commit('setName', window.prompt('Please tell me your name'));
-                this.socket.emit('join', this.name);
+                this.$store.commit('newSession', {
+                    id: uuidv4(),
+                    name: window.prompt('Please tell me your name')
+                });
+
+                this.socket.emit('join', this.session);
 
                 //this.socket.emit('start', this.room);
             },
             leave(e){
                 e.target.blur();
 
-                this.$store.commit('setName', '');
+                this.$store.commit('endSession');
+                // this.$store.commit('setName', '');
                 this.socket.emit('leave');
             }
         },

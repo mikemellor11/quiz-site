@@ -9,13 +9,13 @@
 
     export default {
         computed: mapState([
-            'name'
+            'session'
         ]),
 
         mounted(){
             this.socket.on('connect', () => {
-                if(this.name){
-                    this.socket.emit('join', this.name);
+                if(this.session){
+                    this.socket.emit('join', this.session);
                 }
             });
         },
