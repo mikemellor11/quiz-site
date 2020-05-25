@@ -1,6 +1,6 @@
 <template>
-    <div class="chat">        
-        <ul class="chat__messages">
+    <div class="chat flex flex-col">        
+        <ul class="chat__messages flex-auto">
             <li
                 v-for="(message, i) in messages"
                 :key="i"
@@ -8,14 +8,29 @@
             />
         </ul>
 
-        <form v-on:submit.prevent="send">
+        <form
+            class="
+                form
+                flex
+                mt-4
+            "
+            v-on:submit.prevent="send"
+        >
             <input
                 v-model="message"
                 autocomplete="off"
-                placeholder="type your message here..."
-                class=""
+                type="text"
+                placeholder="Message..."
+                class="
+                    flex-auto
+                    form__input
+                "
             />
             <button
+                class="
+                    button
+                    ml-4
+                "
                 type="submit"
                 v-text="'Send'"
             />

@@ -1,14 +1,15 @@
 .chat{
-    background-color: gray;
     padding: $spacing;
     color: white;
+    background-color: darken($color1, 5%);
+    border-radius: $radius;
 }
 
 .chat__messages{
-    height: 125px;
+    border-radius: $radius;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: darken($color1, 7.5%);
     padding: $spacing;
     display: flex;
     flex-direction: column-reverse;

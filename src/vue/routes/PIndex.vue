@@ -37,6 +37,7 @@
                 v-else
                 class="
                     button
+                    button--1
                 "
                 v-text="'Leave'"
                 v-on:click="leave"

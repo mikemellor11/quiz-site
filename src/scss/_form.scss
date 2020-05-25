@@ -1,0 +1,24 @@
+input[type="email"], 
+input[type="password"], 
+input[type="text"], 
+input[type="tel"], 
+input[type="search"], 
+textarea, 
+select {
+    background-color: $color0;
+    border: none;
+    width: 100%;
+    min-width: 80px;
+    padding: $spacing;
+    box-sizing: border-box;
+    border-radius: $radius;
+    outline: none;
+    border: 1px solid $color1;
+    appearance: none;
+    color: $color1;
+
+    &:focus, &:active {
+        border: 1px solid $color1;
+        color: $color1;
+    }
+}

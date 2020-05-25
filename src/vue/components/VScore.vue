@@ -1,16 +1,31 @@
 <template>
-    <div>
-        <h3>Scores:</h3>
-        <ol>
-            <li
-                v-for="(player, i) in players"
-                :key="i"
-                v-text="`${player.name}: ${player.score}`"
+    <div class="flex flex-col">
+        <div class="score flex-auto">
+            <h3>Scores:</h3>
+            <ol>
+                <li
+                    v-for="(player, i) in players"
+                    :key="i"
+                    v-text="`${player.name}: ${player.score}`"
+                />
+            </ol>
+        </div>
+        <div>
+            <p
+                class="
+                    mt-3
+                    text-right
+                "
+                v-text="`${players.length} playing`"
             />
-        </ol>
-        <p
-            v-text="`${spectators.length} people spectating:`"
-        />
+            <p
+                class="
+                    mt-3
+                    text-right
+                "
+                v-text="`${spectators.length} spectating`"
+            />
+        </div>
     </div>
 </template>
 
