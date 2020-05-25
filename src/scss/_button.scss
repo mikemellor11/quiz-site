@@ -13,4 +13,8 @@
 
 .button--1{
     background-color: $color3;
+
+    &:hover, &:focus{
+        background-color: darken($color3, 10%);
+    }
 }

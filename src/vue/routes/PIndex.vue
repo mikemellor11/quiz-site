@@ -1,101 +1,54 @@
 <template>
     <div class="h-full grid grid-rows-4 grid-cols-4 h-100 gap-4">
-        <div class="col-span-3 row-span-2">
-            <h1>Quiz</h1>
-            <h2>Room: {{room}}</h2>
-        </div>
-
-        <VScore
-            class="col-span-1 row-span-3"
+        <VVisualize
+            class="
+                col-span-3
+                row-span-2
+            "
         />
 
-        <div class="col-span-3 row-span-2">
-            <div
-                v-if="question"
-            >
-                <p
-                    v-html="question.question"
-                />
-                <ul>
-                    <li
-                        v-for="(answer, i) in question.answers"
-                        :key="i"
-                        v-html="answer"
-                    />
-                </ul>
-            </div>
+        <VScore
+            class="
+                col-span-1
+                row-span-3
+            "
+        />
 
-            <button
-                v-if="!$store.state.session"
-                class="
-                    button
-                "
-                v-text="'Join'"
-                v-on:click="join"
-            />
-            <button
-                v-else
-                class="
-                    button
-                    button--1
-                "
-                v-text="'Leave'"
-                v-on:click="leave"
-            />
-        </div>
+        <VQuestion
+            class="
+                col-span-3
+                row-span-2
+            "
+        />
 
         <VChat
-            class="col-span-1 row-span-1"
+            class="
+                col-span-1
+                row-span-1
+            "
         />
     </div>
 </template>
 
 <script>
     import { mapState } from 'vuex';
-    import { v4 as uuidv4 } from 'uuid';
 
     export default {
         name: 'PIndex',
 
         data: function () {
             return {
-                question: null
             };
         },
 
         computed: mapState([
-            'session'
         ]),
-
-        methods: {
-            join(e){
-                e.target.blur();
-
-                this.$store.commit('newSession', {
-                    id: uuidv4(),
-                    name: window.prompt('Please tell me your name')
-                });
-
-                this.socket.emit('join', this.session);
-
-                //this.socket.emit('start', this.room);
-            },
-            leave(e){
-                e.target.blur();
-
-                this.$store.commit('endSession');
-                // this.$store.commit('setName', '');
-                this.socket.emit('leave');
-            }
-        },
-
-        mounted(){
-            // this.socket.on('question', json => this.question = json);
-        },
 
         components: {
             'VChat': require('../components/VChat.vue').default,
-            'VScore': require('../components/VScore.vue').default
+            'VScore': require('../components/VScore.vue').default,
+            'VVisualize': require('../components/VVisualize.vue').default,
+            'VQuestion': require('../components/VQuestion.vue').default
         }
     };
 </script>
