@@ -46,7 +46,11 @@
                                 button
                                 w-full
                             "
+                            :class="{
+                                'active': submitted.index === i
+                            }"
                             v-html="answer"
+                            v-on:click="socket.emit('answer', i)"
                         />
                     </li>
                 </ul>
@@ -69,8 +73,12 @@
         },
 
         computed: {
+            submitted(){
+                return this.question.submitted.find(d => d.id === this.session.id) || {};
+            },
             ...mapState([
-                'state'
+                'state',
+                'session'
             ])
         },
 
