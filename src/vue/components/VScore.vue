@@ -13,7 +13,7 @@
                 v-if="state === 1"
             >
                 <button
-                    v-if="!$store.state.session"
+                    v-if="!session"
                     class="
                         w-full
                         button
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+    import Vue from "vue";
     import axios from "axios";
     import { v4 as uuidv4 } from 'uuid';
     import { mapState } from 'vuex';
@@ -73,10 +74,10 @@
             players(){
                 return this.scores.filter(d => d.session);
             },
-            ...mapState([
-                'session',
-                'state'
-            ])
+            ...mapState(Vue.prototype.room, {
+                "session": state => state.session,
+                "state": state => state.state
+            })
         },
 
         methods: {
@@ -89,7 +90,7 @@
             join(e){
                 e.target.blur();
 
-                this.$store.commit('newSession', {
+                this.$store.commit(`${Vue.prototype.room}/newSession`, {
                     id: uuidv4(),
                     name: window.prompt('Please tell me your name')
                 });
@@ -99,7 +100,7 @@
             leave(e){
                 e.target.blur();
 
-                this.$store.commit('endSession');
+                this.$store.commit(`${Vue.prototype.room}/endSession`);
 
                 this.socket.emit('leave');
             }

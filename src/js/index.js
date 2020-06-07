@@ -1,11 +1,10 @@
 import Vue from 'vue';
-import router from './router.js';
 import store from './store.js';
+import router from './router.js';
 import socket from "./socket.js";
 import axios from "axios";
 
 Vue.prototype.socket = socket;
-Vue.prototype.room = window.location.pathname;
 
 new Vue({
     el: '#app',
@@ -14,12 +13,13 @@ new Vue({
     render: h => h(require('../vue/App.vue').default)
 });
 
-store.commit('updateState', null);
+store.commit(`${Vue.prototype.room}/updateState`, null);
 axios.get(`http://192.168.0.11:8080/state${Vue.prototype.room}`)
     .then(res => {
-        if(!store.state.state){
-            store.commit('updateState', res.data);
+        // Check here if state has been set during the time the request has been running, socket should take priority
+        if(!store.state[Vue.prototype.room].state){
+            store.commit(`${Vue.prototype.room}/updateState`, res.data);
         }
     });
 
-socket.on('update state', (state) => store.commit('updateState', state));
+socket.on('update state', (state) => store.commit(`${Vue.prototype.room}/updateState`, state));

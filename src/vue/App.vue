@@ -5,12 +5,15 @@
 </template>
 
 <script>
+    import Vue from "vue";
     import { mapState } from 'vuex';
 
     export default {
-        computed: mapState([
-            'session'
-        ]),
+        computed: {
+            ...mapState(Vue.prototype.room, {
+                "session": state => state.session
+            })
+        },
 
         mounted(){
             this.socket.on('connect', () => {

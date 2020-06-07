@@ -2,29 +2,17 @@ import Vue from "vue";
 import Vuex from "vuex";
 import VuexPersistedState from "vuex-persistedstate";
 
+Vue.prototype.room = window.location.pathname;
+
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-    plugins: [
-        VuexPersistedState({
-    		key: document.title
-    	})
-    ],
-    
-    state: {
-        session: null,
-        state: null
-    },
+var store = new Vuex.Store();
 
-    mutations: {
-        newSession(state, payload){
-            state.session = payload;
-        },
-        endSession(state, payload){
-            state.session = null;
-        },
-        updateState(state, payload){
-            state.state = payload;
-        }
-    }
-});
+store.registerModule(Vue.prototype.room, require('./store/session').default);
+
+// Load persisted state after module registration
+VuexPersistedState({
+    key: document.title
+})(store);
+
+export default store;
