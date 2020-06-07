@@ -50,7 +50,7 @@
                                 'active': submitted.index === i
                             }"
                             v-html="answer"
-                            v-on:click="socket.emit('answer', i)"
+                            v-on:click="socket.emit('answer', {session: session, index: i})"
                         />
                     </li>
                 </ul>

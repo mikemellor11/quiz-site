@@ -39,6 +39,9 @@
 </template>
 
 <script>
+    import Vue from "vue";
+    import { mapState } from 'vuex';
+
     export default {
         name: 'VChat',
 
@@ -49,9 +52,15 @@
             };
         },
 
+        computed: {
+            ...mapState(Vue.prototype.room, {
+                "session": state => state.session
+            })
+        },
+
         methods: {
             send(){
-                this.socket.emit('input', this.message);
+                this.socket.emit('input', {session: this.session, message: this.message});
                 this.message = '';
             }
         },

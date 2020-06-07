@@ -92,7 +92,7 @@
 
                 this.$store.commit(`${Vue.prototype.room}/newSession`, {
                     id: uuidv4(),
-                    name: window.prompt('Please tell me your name')
+                    name: window.prompt('Please tell me your name') || 'Unnamed'
                 });
 
                 this.socket.emit('join', this.session);
@@ -100,9 +100,9 @@
             leave(e){
                 e.target.blur();
 
-                this.$store.commit(`${Vue.prototype.room}/endSession`);
+                this.socket.emit('leave', this.session);
 
-                this.socket.emit('leave');
+                this.$store.commit(`${Vue.prototype.room}/endSession`);
             }
         },
 
