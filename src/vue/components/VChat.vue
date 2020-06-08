@@ -66,7 +66,9 @@
         },
 
         mounted(){
-            this.socket.on('output', msg => this.messages.unshift(msg));
+            if(!this.socket.listeners('output').length){
+                this.socket.on('output', msg => this.messages.unshift(msg));
+            }
         }
     };
 </script>

@@ -6,7 +6,8 @@
                 <li
                     v-for="(player, i) in players"
                     :key="i"
-                    v-text="`${player.session.name}: ${player.score}`"
+                    v-text="`${player.name}: ${player.score}`"
+                    :class="{'text-gray-700': !player.sockets.length}"
                 />
             </ol>
             <div
@@ -58,21 +59,24 @@
     import { v4 as uuidv4 } from 'uuid';
     import { mapState } from 'vuex';
 
+    const CancelToken = axios.CancelToken;
+
     export default {
         name: 'VScore',
 
         data: function () {
             return {
                 scores: [],
+                cancel: null
             };
         },
 
         computed: {
             spectators(){
-                return this.scores.filter(d => !d.session);
+                return this.scores.filter(d => !d.id);
             },
             players(){
-                return this.scores.filter(d => d.session);
+                return this.scores.filter(d => d.id);
             },
             ...mapState(Vue.prototype.room, {
                 "session": state => state.session,
@@ -81,10 +85,36 @@
         },
 
         methods: {
-            update(){
-                axios.get(`http://192.168.0.11:8080/scores${this.room}`)
+            update(caller){
+                if(this.cancel){
+                    this.cancel(caller);
+                    this.cancel = null;
+                }
+
+                axios.get(
+                        `http://192.168.0.11:8080/scores${this.room}`, 
+                        {
+                            cancelToken: new CancelToken(c => this.cancel = c)
+                        }
+                    )
                     .then(res => {
+                        this.cancel = null
+                        
                         this.scores = res.data;
+
+                        // If the user has multiple tabs when first joining then send join command for each socket that isn't yet added to sockets array
+                        if(this.socket.id){
+                            var user = this.session && this.players.find(d => d.id === this.session.id);
+                            if(user && user.sockets.indexOf(this.socket.id) === -1){
+                                this.socket.emit('join', this.session);
+                            }
+                        }
+                    }).catch(function (err) {
+                        if(axios.isCancel(err)) {
+                            console.log('Request canceled: ', err.message);
+                        } else {
+                            // handle error
+                        }
                     });
             },
             join(e){
@@ -107,9 +137,13 @@
         },
 
         mounted(){
-            this.update();
+            this.update("mounted");
 
-            this.socket.on('update users', () => this.update());
+            this.socket.on('update users', () => this.update("socket"));
+        },
+
+        beforeDestroy(){
+            this.socket.off('update users');
         }
     };
 </script>
