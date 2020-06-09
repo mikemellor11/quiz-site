@@ -85,9 +85,9 @@
         },
 
         methods: {
-            update(caller){
+            update(){
                 if(this.cancel){
-                    this.cancel(caller);
+                    this.cancel();
                     this.cancel = null;
                 }
 
@@ -98,7 +98,7 @@
                         }
                     )
                     .then(res => {
-                        this.cancel = null
+                        this.cancel = null;
                         
                         this.scores = res.data;
 
@@ -109,7 +109,8 @@
                                 this.socket.emit('join', this.session);
                             }
                         }
-                    }).catch(function (err) {
+                    })
+                    .catch(function (err) {
                         if(axios.isCancel(err)) {
                             console.log('Request canceled: ', err.message);
                         } else {
@@ -137,9 +138,9 @@
         },
 
         mounted(){
-            this.update("mounted");
+            this.update();
 
-            this.socket.on('update users', () => this.update("socket"));
+            this.socket.on('update users', () => this.update());
         },
 
         beforeDestroy(){

@@ -13,6 +13,14 @@
     &.active{
         background-color: $color4;
     }
+
+    &.correct{
+        background-color: $color5;
+    }
+
+    &.incorrect{
+        background-color: $color3;
+    }
 }
 
 .button--1{

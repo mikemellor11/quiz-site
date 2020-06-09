@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import Vue from "vue";
     import { mapState } from "vuex";
 
     export default {
@@ -28,10 +29,10 @@
         },
 
         computed: {
-            ...mapState([
-                'session',
-                'state'
-            ])
+            ...mapState(Vue.prototype.room, {
+                "session": state => state.session,
+                "state": state => state.state
+            })
         },
 
         methods: {

@@ -47,7 +47,9 @@
                                 w-full
                             "
                             :class="{
-                                'active': submitted.index === i
+                                'active': submitted.index === i,
+                                'correct': question.answer === i,
+                                'incorrect': question.answer != null && submitted.index === i && submitted.index !== question.answer
                             }"
                             v-html="answer"
                             v-on:click="socket.emit('answer', {session: session, index: i})"
@@ -60,8 +62,11 @@
 </template>
 
 <script>
+    import Vue from "vue";
     import axios from "axios";
     import { mapState } from 'vuex';
+
+    const CancelToken = axios.CancelToken;
 
     export default {
         name: 'VQuestion',
@@ -76,16 +81,37 @@
             submitted(){
                 return this.question.submitted.find(d => d.id === this.session.id) || {};
             },
-            ...mapState([
-                'state',
-                'session'
-            ])
+            ...mapState(Vue.prototype.room, {
+                "session": state => state.session,
+                "state": state => state.state
+            })
         },
 
         methods: {
             update(){
-                axios.get(`http://192.168.0.11:8080/question${this.room}`)
-                    .then(res => this.question = res.data);
+                if(this.cancel){
+                    this.cancel();
+                    this.cancel = null;
+                }
+
+                axios.get(
+                        `http://192.168.0.11:8080/question${this.room}`, 
+                        {
+                            cancelToken: new CancelToken(c => this.cancel = c)
+                        }
+                    )
+                    .then(res => {
+                        this.cancel = null;
+
+                        return this.question = res.data;
+                    })
+                    .catch(function (err) {
+                        if(axios.isCancel(err)) {
+                            console.log('Request canceled: ', err.message);
+                        } else {
+                            // handle error
+                        }
+                    });
             }
         },
 
@@ -93,6 +119,10 @@
             this.update();
                  
             this.socket.on('question', () => this.update());
+        },
+
+        beforeDestroy(){
+            this.socket.off('question');
         }
     };
 </script>
