@@ -10,7 +10,11 @@ Vue.use(Vuex);
 var store = new Vuex.Store({
     plugins: [
         createMultiTabState(),
-    ]
+    ],
+
+    modules: {
+        'question': require('./store/question').default
+    }
 });
 
 store.registerModule(Vue.prototype.room, require('./store/session').default);

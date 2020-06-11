@@ -7,7 +7,12 @@
                     v-for="(player, i) in players"
                     :key="i"
                     v-text="`${player.name}: ${player.score}`"
-                    :class="{'text-gray-700': !player.sockets.length}"
+                    :class="{
+                        'text-gray-700': !player.sockets.length,
+                        'text-purple-300': question.submitted.length && question.answer == null && question.submitted.filter(d => d.id === player.id).length,
+                        'text-red-500': question.submitted.length && question.submitted.find(d => d.id === player.id).index !== question.answer,
+                        'text-green-500': question.submitted.length && (question.submitted.find(d => d.id === player.id).index === question.answer)
+                    }"
                 />
             </ol>
             <div
@@ -81,6 +86,9 @@
             ...mapState(Vue.prototype.room, {
                 "session": state => state.session,
                 "state": state => state.state
+            }),
+            ...mapState('question', {
+                "question": state => state.array
             })
         },
 
