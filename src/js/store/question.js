@@ -30,7 +30,13 @@ export default {
                     }
                 )
                 .then(res => context.commit('update', res.data))
-                .catch(err => console.log(err.message))
+                .catch(err => {
+                    if(axios.isCancel(err)) {
+                        console.log('Request canceled: ', err.message);
+                    } else {
+                        // handle error
+                    }
+                })
                 .finally(() => this.cancel = null);
         }
     }

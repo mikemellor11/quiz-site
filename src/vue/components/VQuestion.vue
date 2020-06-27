@@ -63,7 +63,6 @@
 
 <script>
     import Vue from "vue";
-    import { mapState, mapActions } from 'vuex';
 
     export default {
         name: 'VQuestion',
@@ -72,19 +71,21 @@
             submitted(){
                 return this.question.submitted.find(d => d.id === this.session.id) || {};
             },
-            ...mapState(Vue.prototype.room, {
-                "session": state => state.session,
-                "state": state => state.state
-            }),
-            ...mapState('question', {
-                "question": state => state.array
-            })
+            session(){
+                return this.$store.state[Vue.prototype.room].session;
+            },
+            state(){
+                return this.$store.state[Vue.prototype.room].state;
+            },
+            question(){
+                return this.$store.state[Vue.prototype.room].question.array;
+            }
         },
 
         methods: {
-            ...mapActions('question', [
-                'update'
-            ]),
+            update(){
+                this.$store.dispatch(`${Vue.prototype.room}/question/update`);
+            }
         },
 
         mounted(){

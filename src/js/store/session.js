@@ -16,5 +16,9 @@ export default {
         updateState(state, payload){
             state.state = payload;
         }
+    },
+
+    modules: {
+        'question': require('./question').default
     }
 };

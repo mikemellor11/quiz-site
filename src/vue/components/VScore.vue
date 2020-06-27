@@ -9,9 +9,9 @@
                     v-text="`${player.name}: ${player.score}`"
                     :class="{
                         'text-gray-700': !player.sockets.length,
-                        'text-purple-300': question.submitted.length && question.answer == null && question.submitted.filter(d => d.id === player.id).length,
-                        'text-red-500': question.submitted.length && question.submitted.find(d => d.id === player.id).index !== question.answer,
-                        'text-green-500': question.submitted.length && (question.submitted.find(d => d.id === player.id).index === question.answer)
+                        'text-purple-300': question && question.submitted.length && question.answer == null && question.submitted.filter(d => d.id === player.id).length,
+                        'text-red-500': question && question.submitted.length && question.submitted.find(d => d.id === player.id).index !== question.answer,
+                        'text-green-500': question && question.submitted.length && (question.submitted.find(d => d.id === player.id).index === question.answer)
                     }"
                 />
             </ol>
@@ -62,7 +62,6 @@
     import Vue from "vue";
     import axios from "axios";
     import { v4 as uuidv4 } from 'uuid';
-    import { mapState } from 'vuex';
 
     const CancelToken = axios.CancelToken;
 
@@ -83,13 +82,15 @@
             players(){
                 return this.scores.filter(d => d.id);
             },
-            ...mapState(Vue.prototype.room, {
-                "session": state => state.session,
-                "state": state => state.state
-            }),
-            ...mapState('question', {
-                "question": state => state.array
-            })
+            session(){
+                return this.$store.state[Vue.prototype.room].session;
+            },
+            state(){
+                return this.$store.state[Vue.prototype.room].state;
+            },
+            question(){
+                return this.$store.state[Vue.prototype.room].question.array;
+            }
         },
 
         methods: {

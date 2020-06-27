@@ -40,7 +40,6 @@
 
 <script>
     import Vue from "vue";
-    import { mapState } from 'vuex';
 
     export default {
         name: 'VChat',
@@ -53,9 +52,12 @@
         },
 
         computed: {
-            ...mapState(Vue.prototype.room, {
-                "session": state => state.session
-            })
+            session(){
+                return this.$store.state[Vue.prototype.room].session;
+            },
+            state(){
+                return this.$store.state[Vue.prototype.room].state;
+            }
         },
 
         methods: {

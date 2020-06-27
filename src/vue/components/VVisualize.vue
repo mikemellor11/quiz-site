@@ -18,7 +18,6 @@
 
 <script>
     import Vue from "vue";
-    import { mapState } from "vuex";
 
     export default {
         name: 'VVisualize',
@@ -29,10 +28,12 @@
         },
 
         computed: {
-            ...mapState(Vue.prototype.room, {
-                "session": state => state.session,
-                "state": state => state.state
-            })
+            session(){
+                return this.$store.state[Vue.prototype.room].session;
+            },
+            state(){
+                return this.$store.state[Vue.prototype.room].state;
+            }
         },
 
         methods: {
