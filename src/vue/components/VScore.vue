@@ -7,12 +7,7 @@
                     v-for="(player, i) in players"
                     :key="i"
                     v-text="`${player.name}: ${player.score}`"
-                    :class="{
-                        'text-gray-700': !player.sockets.length,
-                        'text-purple-300': question && question.submitted.length && question.answer == null && question.submitted.filter(d => d.id === player.id).length,
-                        'text-red-500': question && question.submitted.length && question.submitted.find(d => d.id === player.id).index !== question.answer,
-                        'text-green-500': question && question.submitted.length && (question.submitted.find(d => d.id === player.id).index === question.answer)
-                    }"
+                    :class="questionStatus(player, i)"
                 />
             </ol>
             <div
@@ -94,6 +89,16 @@
         },
 
         methods: {
+            questionStatus(player){
+                var status = this.question && this.question.submitted.length && this.question.submitted.find(d => d.id === player.id);
+
+                return {
+                    'text-gray-700': !player.sockets.length,
+                    'text-purple-300': status && this.question.answer == null,
+                    'text-red-500': status && status.index !== this.question.answer,
+                    'text-green-500': status && status.index === this.question.answer
+                };
+            },
             update(){
                 if(this.cancel){
                     this.cancel();
