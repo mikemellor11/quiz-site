@@ -2,28 +2,38 @@
     <div class="h-full grid grid-rows-6 grid-cols-12 gap-4">
         <VVisualize
             class="
-                col-span-8
-                row-span-4
+                lg:col-span-8
+                lg:row-span-4
+                lg:flex
+                hidden
             "
         />
 
         <VScore
             class="
-                col-span-4
-                row-span-4
+                lg:col-span-4
+                lg:row-span-4
+                col-span-12
+                row-span-2
             "
         />
 
         <VQuestion
             class="
-                col-span-8
+                lg:col-span-8
+                lg:row-span-2
+                col-span-12
                 row-span-2
+                lg:order-none
+                order-first
             "
         />
 
         <VChat
             class="
-                col-span-4
+                lg:col-span-4
+                lg:row-span-2
+                col-span-12
                 row-span-2
             "
         />
