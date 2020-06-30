@@ -61,7 +61,7 @@
             update(){
                 this.$store.commit(`${Vue.prototype.room}/updateState`, null);
 
-                axios.get(`http://192.168.0.11:8080/state${Vue.prototype.room}`)
+                axios.get(`${window.endpoint}/state${Vue.prototype.room}`)
                     .then(res => {
                         // Check here if state has been set during the time the request has been running, socket should take priority
                         if(!this.state){

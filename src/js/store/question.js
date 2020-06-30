@@ -24,7 +24,7 @@ export default {
             }
             
             return axios.get(
-                    `http://192.168.0.11:8080/question${Vue.prototype.room}`, 
+                    `${window.endpoint}/question${Vue.prototype.room}`, 
                     {
                         cancelToken: new CancelToken(c => this.cancel = c)
                     }

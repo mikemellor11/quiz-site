@@ -106,7 +106,7 @@
                 }
 
                 axios.get(
-                        `http://192.168.0.11:8080/scores${this.room}`, 
+                        `${window.endpoint}/scores${this.room}`, 
                         {
                             cancelToken: new CancelToken(c => this.cancel = c)
                         }
