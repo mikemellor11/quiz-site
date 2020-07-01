@@ -1,0 +1,1 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c932f0c9-df3d-4d6f-9705-36794ac549b3/deploy-status)](https://app.netlify.com/sites/mikemellor11-quiz-site/deploys)
