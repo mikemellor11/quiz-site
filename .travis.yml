@@ -8,7 +8,7 @@ before_deploy:
   - npm run production
 deploy:
   provider: script
-  script: netlify deploy -s $NETLIFY_SITE_ID -auth $NETLIFY_ACCESS_TOKEN -p --dir ./dist
+  script: netlify deploy -s $NETLIFY_SITE_ID -a $NETLIFY_AUTH_TOKEN -p -d ./dist
   skip_cleanup: true
   on:
     branch: master
