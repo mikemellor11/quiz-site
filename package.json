@@ -2,20 +2,19 @@
   "name": "quiz-site",
   "version": "1.0.0",
   "description": "Front end for quiz api",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel ./src/index.html",
-    "production": "parcel build ./src/index.html"
-  },
   "author": "",
-  "license": "ISC",
+  "scripts": {
+    "test:unit": "vue-cli-service test:unit",
+    "production": "parcel build ./src/index.html",
+    "start": "parcel ./src/index.html",
+    "test": "npm run test:unit"
+  },
+  "main": "index.js",
   "dependencies": {
     "axios": "0.19.2",
     "socket.io-client": "2.3.0",
     "tailwindcss": "1.4.6",
     "vue": "2.6.11",
-    "vue-hot-reload-api": "2.3.4",
     "vue-router": "3.1.6",
     "vuex": "3.4.0",
     "vuex-multi-tab-state": "1.0.13",
@@ -24,13 +23,19 @@
   "devDependencies": {
     "@babel/core": "7.9.6",
     "@babel/preset-env": "7.9.6",
+    "@vue/cli-plugin-unit-mocha": "4.4.6",
+    "@vue/cli-service": "4.4.6",
     "@vue/component-compiler-utils": "3.1.2",
+    "@vue/test-utils": "1.0.3",
     "autoprefixer": "9.8.0",
+    "chai": "4.1.2",
     "eslint": "7.0.0",
     "parcel-bundler": "1.12.4",
     "postcss-modules": "2.0.0",
     "sass": "1.26.5",
     "typescript": "3.9.2",
+    "vue-hot-reload-api": "2.3.4",
     "vue-template-compiler": "2.6.11"
-  }
+  },
+  "license": "ISC"
 }
