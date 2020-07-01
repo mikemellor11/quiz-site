@@ -4,7 +4,7 @@
   "description": "Front end for quiz api",
   "author": "",
   "scripts": {
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "nyc --all --include=src/**/* vue-cli-service test:unit",
     "production": "parcel build ./src/index.html",
     "start": "parcel ./src/index.html",
     "test": "npm run test:unit"
@@ -29,7 +29,9 @@
     "@vue/test-utils": "1.0.3",
     "autoprefixer": "9.8.0",
     "chai": "4.1.2",
+    "coveralls": "3.1.0",
     "eslint": "7.0.0",
+    "nyc": "15.1.0",
     "parcel-bundler": "1.12.4",
     "postcss-modules": "2.0.0",
     "sass": "1.26.5",
