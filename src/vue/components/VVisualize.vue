@@ -1,19 +1,9 @@
 <template>
     <div class="visualize flex items-center justify-center" ref="container">
-        <button
-            v-if="session && state === 1"
-            class="
-                button
-                object-center
-            "
-            v-text="'Start'"
-            v-on:click="start"
-        />
         <ul
             class="
                 course
             "
-            v-else-if="state === 2"
         >
             <li
                 v-for="(player, i) in players"
@@ -63,9 +53,6 @@
         },
 
         methods: {
-            start(){
-                this.socket.emit('start');       
-            },
             calcHeight(){
                 this.windowHeight = this.$refs.container.clientHeight;
             }

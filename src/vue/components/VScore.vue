@@ -14,6 +14,16 @@
                 v-if="state === 1"
             >
                 <button
+                    v-if="session && state === 1"
+                    class="
+                        w-full
+                        button
+                        mb-4
+                    "
+                    v-text="'Start'"
+                    v-on:click="start"
+                />
+                <button
                     v-if="!session"
                     class="
                         w-full
@@ -113,6 +123,9 @@
                 this.socket.emit('leave', this.session);
 
                 this.$store.commit(`${Vue.prototype.room}/endSession`);
+            },
+            start(){
+                this.socket.emit('start');       
             }
         },
 
