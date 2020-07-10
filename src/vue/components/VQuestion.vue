@@ -52,7 +52,7 @@
                                 'incorrect': question.answer != null && submitted.index === i && submitted.index !== question.answer
                             }"
                             v-html="answer"
-                            v-on:click="socket.emit('answer', {session: session, index: i})"
+                            v-on:click="socket.emit('answer', {session: session, index: i}); $event.target.blur();"
                         />
                     </li>
                 </ul>

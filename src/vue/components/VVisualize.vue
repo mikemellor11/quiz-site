@@ -13,7 +13,7 @@
             class="
                 course
             "
-            v-else
+            v-else-if="state === 2"
         >
             <li
                 v-for="(player, i) in players"
