@@ -1,9 +1,8 @@
 <template>
-    <div class="horse">
+    <div class="horse" :style="{'fill': color}">
         <?xml version="1.0" encoding="utf-8"?>
         <!-- Generator: Adobe Illustrator 23.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-            :fill="color" viewBox="0 0 223.6 155.4" style="enable-background:new 0 0 223.6 155.4;" xml:space="preserve">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 223.6 155.4" style="enable-background:new 0 0 223.6 155.4;" xml:space="preserve">
             <g>
                 <path id="path877" d="M62.1,0.3c-1,0.3-2,0.9-3,1.5c-0.9,0.7-1.8,1.5-2.5,2.3C55.9,5,55.4,5.9,55,6.8c-0.3,0.8-0.5,1.7-0.6,2.4
                     c-0.1,0.7,0,1.4,0,2c-0.5,0.1-1,0.2-1.6,0.2c-0.5,0.1-1.1,0-1.4,0.1c-0.3,0.1-0.3,0.2-0.1,0.3c0.2,0.2,0.6,0.4,1.1,0.6
