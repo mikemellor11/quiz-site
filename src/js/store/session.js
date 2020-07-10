@@ -19,6 +19,7 @@ export default {
     },
 
     modules: {
-        'question': require('./question').default
+        'question': require('./question').default,
+        'scores': require('./scores').default
     }
 };

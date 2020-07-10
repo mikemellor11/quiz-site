@@ -58,19 +58,13 @@
     import axios from "axios";
     import { v4 as uuidv4 } from 'uuid';
 
-    const CancelToken = axios.CancelToken;
-
     export default {
         name: 'VScore',
 
-        data: function () {
-            return {
-                scores: [],
-                cancel: null
-            };
-        },
-
         computed: {
+            scores(){
+                return this.$store.state[Vue.prototype.room].scores.array;
+            },
             spectators(){
                 return this.scores.filter(d => !d.id);
             },
@@ -100,37 +94,7 @@
                 };
             },
             update(){
-                if(this.cancel){
-                    this.cancel();
-                    this.cancel = null;
-                }
-
-                axios.get(
-                        `${window.endpoint}/scores${this.room}`, 
-                        {
-                            cancelToken: new CancelToken(c => this.cancel = c)
-                        }
-                    )
-                    .then(res => {
-                        this.cancel = null;
-                        
-                        this.scores = res.data;
-
-                        // If the user has multiple tabs when first joining then send join command for each socket that isn't yet added to sockets array
-                        if(this.socket.id){
-                            var user = this.session && this.players.find(d => d.id === this.session.id);
-                            if(user && user.sockets.indexOf(this.socket.id) === -1){
-                                this.socket.emit('join', this.session);
-                            }
-                        }
-                    })
-                    .catch(function (err) {
-                        if(axios.isCancel(err)) {
-                            console.log('Request canceled: ', err.message);
-                        } else {
-                            // handle error
-                        }
-                    });
+                this.$store.dispatch(`${Vue.prototype.room}/scores/update`);
             },
             join(e){
                 e.target.blur();

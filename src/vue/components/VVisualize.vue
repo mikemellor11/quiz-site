@@ -9,25 +9,53 @@
             v-text="'Start'"
             v-on:click="start"
         />
-        <p
+        <ul
+            class="
+                course
+            "
             v-else
-            v-text="'Imagine horses here'"
-        />
+        >
+            <li
+                v-for="(player, i) in players"
+                :key="i"
+            >
+                <VHorse
+                    :style="{
+                        'left': `${100 - ((player.score / 1000) * 100)}%`
+                    }"
+                    :color="colors[i]"
+                />
+            </li>
+        </ul>
     </div>
 </template>
 
 <script>
     import Vue from "vue";
-
+     
     export default {
         name: 'VVisualize',
 
-        data: function () {
+        data(){
             return {
-            };
+                colors: [
+                    'orange',
+                    'green',
+                    'purple',
+                    'red',
+                    'white',
+                    'blue'
+                ]
+            }
         },
 
         computed: {
+            scores(){
+                return this.$store.state[Vue.prototype.room].scores.array;
+            },
+            players(){
+                return this.scores.filter(d => d.id);
+            },
             session(){
                 return this.$store.state[Vue.prototype.room].session;
             },
@@ -42,7 +70,8 @@
             }
         },
 
-        mounted(){
+        components: {
+            'VHorse': require('./VHorse.vue').default
         }
     };
 </script>
