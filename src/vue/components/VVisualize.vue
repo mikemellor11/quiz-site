@@ -1,5 +1,5 @@
 <template>
-    <div class="visualize flex items-center justify-center">
+    <div class="visualize flex items-center justify-center" ref="container">
         <button
             v-if="session && state === 1"
             class="
@@ -21,9 +21,11 @@
             >
                 <VHorse
                     :style="{
-                        'left': `${100 - ((player.score / 1000) * 100)}%`
+                        'left': `${100 - ((player.score / 1000) * 100)}%`,
+                        'width': `${height}px`
                     }"
-                    :color="colors[i]"
+                    :color="player.color"
+                    :name="player.name"
                 />
             </li>
         </ul>
@@ -38,14 +40,7 @@
 
         data(){
             return {
-                colors: [
-                    'orange',
-                    'green',
-                    'purple',
-                    'red',
-                    'white',
-                    'blue'
-                ]
+                windowHeight: 0
             }
         },
 
@@ -61,13 +56,28 @@
             },
             state(){
                 return this.$store.state[Vue.prototype.room].state;
+            },
+            height(){
+                return (this.windowHeight * 0.75) / this.players.length;
             }
         },
 
         methods: {
             start(){
                 this.socket.emit('start');       
+            },
+            calcHeight(){
+                this.windowHeight = this.$refs.container.clientHeight;
             }
+        },
+
+        mounted(){
+            this.calcHeight();
+            window.addEventListener('resize', this.calcHeight);
+        },
+
+        beforeDestroy(){
+            window.removeEventListener('resize', this.calcHeight);
         },
 
         components: {

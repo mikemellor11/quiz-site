@@ -101,7 +101,8 @@
 
                 this.$store.commit(`${Vue.prototype.room}/newSession`, {
                     id: uuidv4(),
-                    name: window.prompt('Please tell me your name') || 'Unnamed'
+                    name: window.prompt('Please tell me your name') || 'Unnamed',
+                    color: window.prompt('Color (hex or color name)') || 'white'
                 });
 
                 this.socket.emit('join', this.session);
