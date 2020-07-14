@@ -6,7 +6,7 @@
         "
     >
         <div
-            v-if="question && state === 2"
+            v-if="question && state === 2 || state === 3"
             class="
                 text-center
                 flex-auto
@@ -69,7 +69,7 @@
 
         computed: {
             submitted(){
-                return this.question.submitted.find(d => d.id === this.session.id) || {};
+                return this.session && this.question.submitted.find(d => d.id === this.session.id) || {};
             },
             session(){
                 return this.$store.state[Vue.prototype.room].session;

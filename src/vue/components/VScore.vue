@@ -10,33 +10,43 @@
                     :class="questionStatus(player, i)"
                 />
             </ol>
-            <div
-                v-if="state === 1"
-            >
+            <div>
+                <button
+                    v-if="state === 3"
+                    class="
+                        w-full
+                        button
+                        mt-4
+                    "
+                    v-text="'Reset'"
+                    v-on:click="socket.emit('reset')"
+                />
                 <button
                     v-if="session && state === 1"
                     class="
                         w-full
                         button
-                        mb-4
+                        mt-4
                     "
                     v-text="'Start'"
                     v-on:click="start"
                 />
                 <button
-                    v-if="!session"
+                    v-if="!session && state === 1"
                     class="
                         w-full
                         button
+                        mt-4
                     "
                     v-text="'Join'"
                     v-on:click="join"
                 />
                 <button
-                    v-else
+                    v-if="session"
                     class="
                         w-full
                         button
+                        mt-4
                         button--1
                     "
                     v-text="'Leave'"
@@ -125,7 +135,7 @@
                 this.$store.commit(`${Vue.prototype.room}/endSession`);
             },
             start(){
-                this.socket.emit('start');       
+                this.socket.emit('start');
             }
         },
 
