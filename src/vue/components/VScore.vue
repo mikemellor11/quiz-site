@@ -12,16 +12,6 @@
             </ol>
             <div>
                 <button
-                    v-if="state === 3"
-                    class="
-                        w-full
-                        button
-                        mt-4
-                    "
-                    v-text="'Reset'"
-                    v-on:click="socket.emit('reset')"
-                />
-                <button
                     v-if="session && state === 1"
                     class="
                         w-full
@@ -30,6 +20,16 @@
                     "
                     v-text="'Start'"
                     v-on:click="start"
+                />
+                <button
+                    v-if="state > 1"
+                    class="
+                        w-full
+                        button
+                        mt-4
+                    "
+                    v-text="'Reset'"
+                    v-on:click="socket.emit('reset')"
                 />
                 <button
                     v-if="!session && state === 1"
