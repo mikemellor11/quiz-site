@@ -30,16 +30,7 @@ export default {
                         cancelToken: new CancelToken(c => cancel = c)
                     }
                 )
-                .then(res => {
-                    context.commit('update', res.data);
-                    // If the user has multiple tabs when first joining then send join command for each socket that isn't yet added to sockets array
-                    // if(this.socket.id){
-                    //     var user = this.session && this.players.find(d => d.id === this.session.id);
-                    //     if(user && user.sockets.indexOf(this.socket.id) === -1){
-                    //         this.socket.emit('join', this.session);
-                    //     }
-                    // }
-                })
+                .then(res => context.commit('update', res.data))
                 .catch(err => {
                     if(axios.isCancel(err)) {
                         console.log('Scores request canceled: ', err.message);

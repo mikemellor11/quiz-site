@@ -102,6 +102,15 @@
             }
         },
 
+        watch: {
+            session(){
+                // If session set and currently still a spectator call join
+                if(this.session && this.spectators.includes(this.socket.id)){
+                    this.socket.emit('join', this.session);
+                }
+            }
+        },
+
         methods: {
             questionStatus(player){
                 var status = this.question && this.question.submitted.length && this.question.submitted.find(d => d.id === player.id);
@@ -124,8 +133,6 @@
                     name: window.prompt('Please tell me your name') || 'Unnamed',
                     color: window.prompt('Color (hex or color name)') || 'white'
                 });
-
-                this.socket.emit('join', this.session);
             },
             leave(e){
                 e.target.blur();
