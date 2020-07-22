@@ -6,7 +6,7 @@
                 <li
                     v-for="(player, i) in players"
                     :key="i"
-                    v-text="`${player.name}: ${player.score}`"
+                    v-text="`${player.name}: ${player.score} ${player.admin ? '*' : ''}`"
                     :class="questionStatus(player, i)"
                 />
             </ol>
