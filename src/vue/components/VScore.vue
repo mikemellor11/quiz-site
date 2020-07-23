@@ -12,7 +12,7 @@
             </ol>
             <div>
                 <button
-                    v-if="session && state === 1"
+                    v-if="session && state === 1 && player.admin"
                     class="
                         w-full
                         button
@@ -22,7 +22,7 @@
                     v-on:click="start"
                 />
                 <button
-                    v-if="state > 1"
+                    v-if="state > 1 && player.admin"
                     class="
                         w-full
                         button
@@ -90,6 +90,9 @@
             },
             players(){
                 return this.scores.filter(d => d.id);
+            },
+            player(){
+                return this.session && this.players.find(d => d.id === this.session.id) || {};
             },
             session(){
                 return this.$store.state[Vue.prototype.room].session;
